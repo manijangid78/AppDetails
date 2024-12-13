@@ -1,11 +1,6 @@
 from typing import List
 from fastapi import FastAPI
-from pydantic import BaseModel
-
-class Article(BaseModel):
-    id: int
-    name: str
-    price: float
+from model.Article import Article
 
 articles = []
 app = FastAPI()
