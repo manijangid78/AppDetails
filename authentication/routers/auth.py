@@ -73,27 +73,19 @@ def verifyOTP(request:Request, otp_dto: OTPDto):
         )
 
 @router.post("/resendOtp", response_model=BaseResponse)
-def resendToken(request: Request, mobile_req: MobileNoRequest):
-    token_value = checkGuestToken(request.headers.get("token"))
-    if token_value==1:
-        otp_dto = AuthService.verifyMobile(mobile_req)
-        if otp_dto is None:
-            return BaseResponse(
-                status="failure",
-                message="mobile verification failed",
-                data=None
-            )
-        else:
-            return BaseResponse(
-                status="success",
-                message="mobile verified successfully",
-                data=otp_dto
-            )
-    else:
+def resendToken(request:Request,  mobile_req: MobileNoRequest):
+    otp_dto = AuthService.verifyMobile(mobile_req)
+    if otp_dto is None:
         return BaseResponse(
             status="failure",
-            message="token verification failed",
+            message="mobile verification failed",
             data=None
+        )
+    else:
+        return BaseResponse(
+            status="success",
+            message="mobile verified successfully",
+            data=otp_dto
         )
 
 @router.post("/verifyToken", response_model=BaseResponse)

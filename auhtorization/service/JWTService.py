@@ -17,8 +17,8 @@ class JwtService:
     def verifyToken(token:str):
         try:
             decoded_data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-            return "Decoded Data {}",decoded_data
+            return decoded_data
         except jwt.ExpiredSignatureError:
-            return "Token has expired"
+            return 1
         except jwt.InvalidTokenError:
-            return "Invalid token"
+            return 2
